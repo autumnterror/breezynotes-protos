@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package test;
+
+option go_package = "test.v1;trpc1";
+
+service Test {
+  rpc First(FirstRequest) returns (FirstResponse);
+  rpc Second(SecondRequest) returns (SecondResponse);
+}
+
+message FirstRequest {
+  string message = 1;
+  string error = 2;
+}
+
+message FirstResponse {
+  string answer = 1;
+}
+
+message SecondRequest {
+  int32 number = 1;
+}
+
+message SecondResponse {
+  string message = 1;
+}
