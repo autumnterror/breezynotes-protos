@@ -221,7 +221,7 @@ const file_test_test_proto_rawDesc = "" +
 	"\amessage\x18\x01 \x01(\tR\amessage2m\n" +
 	"\x04Test\x120\n" +
 	"\x05First\x12\x12.test.FirstRequest\x1a\x13.test.FirstResponse\x123\n" +
-	"\x06Second\x12\x13.test.SecondRequest\x1a\x14.test.SecondResponseB\x0fZ\rtest.v1;trpc1b\x06proto3"
+	"\x06Second\x12\x13.test.SecondRequest\x1a\x14.test.SecondResponseB$Z\"github.com/Jagrinos/BNprotos;trpc1b\x06proto3"
 
 var (
 	file_test_test_proto_rawDescOnce sync.Once
