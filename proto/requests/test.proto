@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package requests;
+
+option go_package = "github.com/Jagrinos/BNprotos;trpc1";
+
+service Chat {
+  rpc SendMessage(MessageRequest) returns (ErrorResponse);
+  rpc AnswerMessage(AnswerRequest) returns (ErrorResponse);
+}
+
+message MessageRequest {
+  string message = 1;
+  string recipient = 2;
+}
+
+message ErrorResponse {
+  string error = 1;
+}
+
+message AnswerRequest {
+  string message = 1;
+  string message_to_answer = 2;
+  string sender = 3;
+  string recipient = 4;
+}
