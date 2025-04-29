@@ -1,1 +1,77 @@
-package auth
+syntax = "proto3";
+package auth;
+
+option go_package = "github.com/Jagrinos/BNprotos;authrpc1";
+
+service AuthTokens {
+  rpc GetTokens(GetTokensRequest) returns (GetTokensResponse);
+  rpc CheckToken(CheckTokenRequest) returns (Message);
+  rpc Refresh(RefreshRequest) returns (RefreshResponse);
+  rpc GetInfo(GetInfoRequest) returns (GetInfoResponse);
+}
+
+message GetTokensRequest {
+  string login = 1;
+}
+
+message GetTokensResponse {
+  string AccessToken = 1;
+  string RefreshToken = 2;
+}
+
+message CheckTokenRequest {
+  string Token = 1;
+}
+
+message Message {
+  string Message = 1;
+}
+
+message RefreshRequest {
+  string RefreshToken = 1;
+}
+
+message RefreshResponse {
+  string AccessToken = 1;
+}
+
+message GetInfoRequest {
+  string AccessToken = 1;
+}
+
+message GetInfoResponse {
+  string Login = 1;
+  string Email = 2;
+  string About = 3;
+}
+
+service AuthUsers {
+  rpc CreateUser(UserRequest) returns (Message);
+  rpc UpdateUser(UserRequest) returns (Message);
+  rpc DeleteUser(LoginRequest) returns (Message);
+  rpc HaveUser(LoginEmailRequest) returns (Message);
+}
+message UserRequest {
+  string Login = 1;
+  string Email = 2;
+  string Password = 3;
+  string About = 4;
+}
+message LoginRequest {
+  string Login = 1;
+}
+message LoginEmailRequest {
+  string Login = 1;
+  string Email = 2;
+}
+
+service AuthData {
+  rpc ValidateData(RegDataRequest) returns (Message);
+}
+
+message RegDataRequest {
+  string Login = 1;
+  string Email = 2;
+  string Password1 = 3;
+  string Password2 = 4;
+}
