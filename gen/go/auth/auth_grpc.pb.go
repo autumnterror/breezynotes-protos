@@ -451,13 +451,15 @@ var AuthUsers_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	AuthData_ValidateData_FullMethodName = "/auth.AuthData/ValidateData"
+	AuthData_Authentication_FullMethodName = "/auth.AuthData/Authentication"
+	AuthData_ValidateData_FullMethodName   = "/auth.AuthData/ValidateData"
 )
 
 // AuthDataClient is the client API for AuthData service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthDataClient interface {
+	Authentication(ctx context.Context, in *AuthenticationRequest, opts ...grpc.CallOption) (*Message, error)
 	ValidateData(ctx context.Context, in *RegDataRequest, opts ...grpc.CallOption) (*Message, error)
 }
 
@@ -467,6 +469,16 @@ type authDataClient struct {
 
 func NewAuthDataClient(cc grpc.ClientConnInterface) AuthDataClient {
 	return &authDataClient{cc}
+}
+
+func (c *authDataClient) Authentication(ctx context.Context, in *AuthenticationRequest, opts ...grpc.CallOption) (*Message, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Message)
+	err := c.cc.Invoke(ctx, AuthData_Authentication_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *authDataClient) ValidateData(ctx context.Context, in *RegDataRequest, opts ...grpc.CallOption) (*Message, error) {
@@ -483,6 +495,7 @@ func (c *authDataClient) ValidateData(ctx context.Context, in *RegDataRequest, o
 // All implementations must embed UnimplementedAuthDataServer
 // for forward compatibility.
 type AuthDataServer interface {
+	Authentication(context.Context, *AuthenticationRequest) (*Message, error)
 	ValidateData(context.Context, *RegDataRequest) (*Message, error)
 	mustEmbedUnimplementedAuthDataServer()
 }
@@ -494,6 +507,9 @@ type AuthDataServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAuthDataServer struct{}
 
+func (UnimplementedAuthDataServer) Authentication(context.Context, *AuthenticationRequest) (*Message, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Authentication not implemented")
+}
 func (UnimplementedAuthDataServer) ValidateData(context.Context, *RegDataRequest) (*Message, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidateData not implemented")
 }
@@ -516,6 +532,24 @@ func RegisterAuthDataServer(s grpc.ServiceRegistrar, srv AuthDataServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&AuthData_ServiceDesc, srv)
+}
+
+func _AuthData_Authentication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthenticationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthDataServer).Authentication(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthData_Authentication_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthDataServer).Authentication(ctx, req.(*AuthenticationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _AuthData_ValidateData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -543,6 +577,10 @@ var AuthData_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "auth.AuthData",
 	HandlerType: (*AuthDataServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Authentication",
+			Handler:    _AuthData_Authentication_Handler,
+		},
 		{
 			MethodName: "ValidateData",
 			Handler:    _AuthData_ValidateData_Handler,

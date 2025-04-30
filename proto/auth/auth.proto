@@ -66,7 +66,14 @@ message LoginEmailRequest {
 }
 
 service AuthData {
+  rpc Authentication(AuthenticationRequest) returns (Message);
   rpc ValidateData(RegDataRequest) returns (Message);
+}
+
+message AuthenticationRequest {
+  string Login = 1;
+  string Email = 2;
+  string Password = 3;
 }
 
 message RegDataRequest {
@@ -75,4 +82,3 @@ message RegDataRequest {
   string Password1 = 3;
   string Password2 = 4;
 }
-//one more time
