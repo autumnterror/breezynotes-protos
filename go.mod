@@ -1,4 +1,4 @@
-module github.com/Jagrinos/BNprotos
+module github.com/autumnterror/breezynotes-protos
 
 go 1.24.0
 
