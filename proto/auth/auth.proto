@@ -1,84 +1,108 @@
 syntax = "proto3";
 package auth;
 
-option go_package = "github.com/Jagrinos/BNprotos;authrpc1";
+option go_package = "github.com/autumnterror/breezynotes-protos;authrpc1";
 
-service AuthTokens {
-  rpc GetTokens(GetTokensRequest) returns (GetTokensResponse);
-  rpc CheckToken(CheckTokenRequest) returns (Message);
-  rpc Refresh(RefreshRequest) returns (RefreshResponse);
-  rpc GetInfo(GetInfoRequest) returns (GetInfoResponse);
+// --- AUTH SERVICE ---
+// Authentication and JWT
+service AuthService {
+  rpc Authenticate(AuthenticationRequest) returns (Message);           // AuthRepo.Authentication
+  rpc GenerateTokens(GenerateTokensRequest) returns (TokensResponse); // WithConfigRepo.GenerateToken
+  rpc VerifyToken(VerifyTokenRequest) returns (TokenInfo);            // WithConfigRepo.VerifyToken + extract info
+  rpc RefreshToken(RefreshTokenRequest) returns (AccessToken);        // WithConfigRepo.Refresh
 }
 
-message GetTokensRequest {
+// --- USER SERVICE ---
+// Full user management
+service UserService {
+  rpc CreateUser(UserRequest) returns (Message);                      // UserRepo.Create
+  rpc UpdateUser(UserRequest) returns (Message);                      // UserRepo.Update
+  rpc UpdatePassword(UpdatePasswordRequest) returns (Message);        // UserRepo.UpdatePassword
+  rpc UpdateEmail(UpdateEmailRequest) returns (Message);              // UserRepo.UpdateEmail
+  rpc UpdateLogin(UpdateLoginRequest) returns (Message);              // UserRepo.UpdateLogin
+  rpc UpdateAbout(UpdateAboutRequest) returns (Message);              // UserRepo.UpdateAbout
+  rpc DeleteUser(ByIdRequest) returns (Message);                      // UserRepo.Delete
+  rpc GetUserInfo(ByIdRequest) returns (UserInfo);                    // UserRepo.GetInfo
+  rpc CheckUserExists(CheckUserExistsRequest) returns (Message);      // UserRepo.CheckUserExists
+}
+
+// --- MESSAGES ---
+
+message AuthenticationRequest {
   string login = 1;
+  string email = 2;
+  string password = 3;
 }
 
-message GetTokensResponse {
-  string AccessToken = 1;
-  string RefreshToken = 2;
+message GenerateTokensRequest {
+  string id = 1;
 }
 
-message CheckTokenRequest {
-  string Token = 1;
+message VerifyTokenRequest {
+  string token = 1;
+}
+
+message RefreshTokenRequest {
+  string refresh_token = 1;
+}
+
+message TokensResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message AccessToken {
+  string access_token = 1;
+}
+
+message TokenInfo {
+  string id = 1;
+  string type = 2;
 }
 
 message Message {
-  string Message = 1;
+  string message = 1;
 }
 
-message RefreshRequest {
-  string RefreshToken = 1;
-}
-
-message RefreshResponse {
-  string AccessToken = 1;
-}
-
-message GetInfoRequest {
-  string AccessToken = 1;
-}
-
-message GetInfoResponse {
-  string Login = 1;
-  string Email = 2;
-  string About = 3;
-}
-
-service AuthUsers {
-  rpc CreateUser(UserRequest) returns (Message);
-  rpc UpdateUser(UserRequest) returns (Message);
-  rpc DeleteUser(LoginRequest) returns (Message);
-  rpc HaveUser(LoginEmailRequest) returns (Message);
-}
 message UserRequest {
-  string Login = 1;
-  string Email = 2;
-  string Password = 3;
-  string About = 4;
-}
-message LoginRequest {
-  string Login = 1;
-}
-message LoginEmailRequest {
-  string Login = 1;
-  string Email = 2;
+  string id = 1;
+  string login = 2;
+  string email = 3;
+  string password = 4;
+  string about = 5;
 }
 
-service AuthData {
-  rpc Authentication(AuthenticationRequest) returns (Message);
-  rpc ValidateData(RegDataRequest) returns (Message);
+message UpdatePasswordRequest {
+  string id = 1;
+  string new_password = 2;
 }
 
-message AuthenticationRequest {
-  string Login = 1;
-  string Email = 2;
-  string Password = 3;
+message UpdateEmailRequest {
+  string id = 1;
+  string email = 2;
 }
 
-message RegDataRequest {
-  string Login = 1;
-  string Email = 2;
-  string Password1 = 3;
-  string Password2 = 4;
+message UpdateLoginRequest {
+  string id = 1;
+  string login = 2;
+}
+
+message UpdateAboutRequest {
+  string id = 1;
+  string about = 2;
+}
+
+message ByIdRequest {
+  string id = 1;
+}
+
+message CheckUserExistsRequest {
+  string login = 1;
+  string email = 2;
+}
+
+message UserInfo {
+  string login = 1;
+  string email = 2;
+  string about = 3;
 }

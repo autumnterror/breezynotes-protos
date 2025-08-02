@@ -1,0 +1,8 @@
+syntax = "proto3";
+package auth;
+
+option go_package = "github.com/autumnterror/breezynotes-protos;noterpc1";
+
+service Note {
+  rpc GetTokens(GetTokensRequest) returns (GetTokensResponse);
+}
