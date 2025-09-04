@@ -57,20 +57,20 @@ message DeleteBlockRequest {
 
 message CreateBlockRequest {
   string type = 1;
-  repeated google.protobuf.Struct data = 2;
+  google.protobuf.Struct data = 2;
 }
 
 message CreateBlockResponse {
-  repeated google.protobuf.Struct data = 2;
+  google.protobuf.Struct data = 2;
 }
 
 message OpBlockRequest {
   string id = 1;
   string action = 2;
   string type = 3;
-  repeated google.protobuf.Struct data = 4;
+  google.protobuf.Struct data = 4;
 }
 
 message OpBlockResponse {
-  repeated google.protobuf.Struct data = 1;
+  google.protobuf.Struct data = 1;
 }

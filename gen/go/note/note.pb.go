@@ -410,7 +410,7 @@ func (x *DeleteBlockRequest) GetId() string {
 type CreateBlockRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Data          []*structpb.Struct     `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
+	Data          *structpb.Struct       `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -452,7 +452,7 @@ func (x *CreateBlockRequest) GetType() string {
 	return ""
 }
 
-func (x *CreateBlockRequest) GetData() []*structpb.Struct {
+func (x *CreateBlockRequest) GetData() *structpb.Struct {
 	if x != nil {
 		return x.Data
 	}
@@ -461,7 +461,7 @@ func (x *CreateBlockRequest) GetData() []*structpb.Struct {
 
 type CreateBlockResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Data          []*structpb.Struct     `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
+	Data          *structpb.Struct       `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -496,7 +496,7 @@ func (*CreateBlockResponse) Descriptor() ([]byte, []int) {
 	return file_note_note_proto_rawDescGZIP(), []int{9}
 }
 
-func (x *CreateBlockResponse) GetData() []*structpb.Struct {
+func (x *CreateBlockResponse) GetData() *structpb.Struct {
 	if x != nil {
 		return x.Data
 	}
@@ -508,7 +508,7 @@ type OpBlockRequest struct {
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Action        string                 `protobuf:"bytes,2,opt,name=action,proto3" json:"action,omitempty"`
 	Type          string                 `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
-	Data          []*structpb.Struct     `protobuf:"bytes,4,rep,name=data,proto3" json:"data,omitempty"`
+	Data          *structpb.Struct       `protobuf:"bytes,4,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -564,7 +564,7 @@ func (x *OpBlockRequest) GetType() string {
 	return ""
 }
 
-func (x *OpBlockRequest) GetData() []*structpb.Struct {
+func (x *OpBlockRequest) GetData() *structpb.Struct {
 	if x != nil {
 		return x.Data
 	}
@@ -573,7 +573,7 @@ func (x *OpBlockRequest) GetData() []*structpb.Struct {
 
 type OpBlockResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Data          []*structpb.Struct     `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+	Data          *structpb.Struct       `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -608,7 +608,7 @@ func (*OpBlockResponse) Descriptor() ([]byte, []int) {
 	return file_note_note_proto_rawDescGZIP(), []int{11}
 }
 
-func (x *OpBlockResponse) GetData() []*structpb.Struct {
+func (x *OpBlockResponse) GetData() *structpb.Struct {
 	if x != nil {
 		return x.Data
 	}
@@ -644,16 +644,16 @@ const file_note_note_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"U\n" +
 	"\x12CreateBlockRequest\x12\x12\n" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12+\n" +
-	"\x04data\x18\x02 \x03(\v2\x17.google.protobuf.StructR\x04data\"B\n" +
+	"\x04data\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x04data\"B\n" +
 	"\x13CreateBlockResponse\x12+\n" +
-	"\x04data\x18\x02 \x03(\v2\x17.google.protobuf.StructR\x04data\"y\n" +
+	"\x04data\x18\x02 \x01(\v2\x17.google.protobuf.StructR\x04data\"y\n" +
 	"\x0eOpBlockRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
 	"\x06action\x18\x02 \x01(\tR\x06action\x12\x12\n" +
 	"\x04type\x18\x03 \x01(\tR\x04type\x12+\n" +
-	"\x04data\x18\x04 \x03(\v2\x17.google.protobuf.StructR\x04data\">\n" +
+	"\x04data\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x04data\">\n" +
 	"\x0fOpBlockResponse\x12+\n" +
-	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data2\x8f\x04\n" +
+	"\x04data\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x04data2\x8f\x04\n" +
 	"\vNoteService\x12,\n" +
 	"\x06Create\x12\n" +
 	".note.Note\x1a\x16.google.protobuf.Empty\x125\n" +
