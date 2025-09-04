@@ -65,7 +65,9 @@ message CreateBlockResponse {
 
 message OpBlockRequest {
   string id = 1;
-  repeated google.protobuf.Struct data = 2;
+  string action = 2;
+  string type = 3;
+  repeated google.protobuf.Struct data = 4;
 }
 
 message OpBlockResponse {

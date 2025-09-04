@@ -498,7 +498,9 @@ func (x *CreateBlockResponse) GetData() []*structpb.Struct {
 type OpBlockRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Data          []*structpb.Struct     `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
+	Action        string                 `protobuf:"bytes,2,opt,name=action,proto3" json:"action,omitempty"`
+	Type          string                 `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	Data          []*structpb.Struct     `protobuf:"bytes,4,rep,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -536,6 +538,20 @@ func (*OpBlockRequest) Descriptor() ([]byte, []int) {
 func (x *OpBlockRequest) GetId() string {
 	if x != nil {
 		return x.Id
+	}
+	return ""
+}
+
+func (x *OpBlockRequest) GetAction() string {
+	if x != nil {
+		return x.Action
+	}
+	return ""
+}
+
+func (x *OpBlockRequest) GetType() string {
+	if x != nil {
+		return x.Type
 	}
 	return ""
 }
@@ -621,10 +637,12 @@ const file_note_note_proto_rawDesc = "" +
 	"\x12CreateBlockRequest\x12+\n" +
 	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data\"B\n" +
 	"\x13CreateBlockResponse\x12+\n" +
-	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data\"M\n" +
+	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data\"y\n" +
 	"\x0eOpBlockRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12+\n" +
-	"\x04data\x18\x02 \x03(\v2\x17.google.protobuf.StructR\x04data\">\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
+	"\x06action\x18\x02 \x01(\tR\x06action\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12+\n" +
+	"\x04data\x18\x04 \x03(\v2\x17.google.protobuf.StructR\x04data\">\n" +
 	"\x0fOpBlockResponse\x12+\n" +
 	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data2\x8f\x04\n" +
 	"\vNoteService\x12,\n" +
