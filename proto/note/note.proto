@@ -60,7 +60,8 @@ message CreateBlockRequest {
 }
 
 message CreateBlockResponse {
-  repeated google.protobuf.Struct data = 1;
+  string type = 1;
+  repeated google.protobuf.Struct data = 2;
 }
 
 message OpBlockRequest {

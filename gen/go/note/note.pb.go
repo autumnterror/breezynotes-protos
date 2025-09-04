@@ -453,7 +453,8 @@ func (x *CreateBlockRequest) GetData() []*structpb.Struct {
 
 type CreateBlockResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Data          []*structpb.Struct     `protobuf:"bytes,1,rep,name=data,proto3" json:"data,omitempty"`
+	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Data          []*structpb.Struct     `protobuf:"bytes,2,rep,name=data,proto3" json:"data,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -486,6 +487,13 @@ func (x *CreateBlockResponse) ProtoReflect() protoreflect.Message {
 // Deprecated: Use CreateBlockResponse.ProtoReflect.Descriptor instead.
 func (*CreateBlockResponse) Descriptor() ([]byte, []int) {
 	return file_note_note_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *CreateBlockResponse) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
 }
 
 func (x *CreateBlockResponse) GetData() []*structpb.Struct {
@@ -635,9 +643,10 @@ const file_note_note_proto_rawDesc = "" +
 	"\x12DeleteBlockRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"A\n" +
 	"\x12CreateBlockRequest\x12+\n" +
-	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data\"B\n" +
-	"\x13CreateBlockResponse\x12+\n" +
-	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data\"y\n" +
+	"\x04data\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x04data\"V\n" +
+	"\x13CreateBlockResponse\x12\x12\n" +
+	"\x04type\x18\x01 \x01(\tR\x04type\x12+\n" +
+	"\x04data\x18\x02 \x03(\v2\x17.google.protobuf.StructR\x04data\"y\n" +
 	"\x0eOpBlockRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x16\n" +
 	"\x06action\x18\x02 \x01(\tR\x06action\x12\x12\n" +
