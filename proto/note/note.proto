@@ -1,8 +1,73 @@
 syntax = "proto3";
-package auth;
 
-option go_package = "github.com/autumnterror/breezynotes-protos;noterpc1";
+package note;
 
-service Note {
-  rpc GetTokens(GetTokensRequest) returns (GetTokensResponse);
+import "google/protobuf/struct.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/autumnterror/breezynotes-protos;noterpc";
+
+service NoteService {
+  rpc Create(Note) returns (google.protobuf.Empty);
+  rpc Delete(DeleteRequest) returns (google.protobuf.Empty);
+  rpc UpdateLastChange(UpdateLastChangeRequest) returns (google.protobuf.Empty);
+  rpc GetAllByUser(GetAllByUserRequest) returns (GetAllByUserResponse);
+  
+  rpc GetBlocksByNoteID(GetBlocksByNoteIDRequest) returns (GetBlocksResponse);
+  rpc DeleteBlock(DeleteBlockRequest) returns (google.protobuf.Empty);
+  rpc CreateBlock(CreateBlockRequest) returns (CreateBlockResponse);
+  rpc OpBlock(OpBlockRequest) returns (OpBlockResponse);
+}
+
+message Note {
+  string id = 1;
+  int64 creation_time = 2;
+  int64 last_change = 3;
+  string title = 4;
+  repeated string users = 5;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+message UpdateLastChangeRequest {
+  string id = 1;
+}
+
+message GetAllByUserRequest {
+  string username = 1;
+}
+
+message GetAllByUserResponse {
+  repeated Note notes = 1;
+}
+
+message GetBlocksByNoteIDRequest {
+  string note_id = 1;
+}
+
+message GetBlocksResponse {
+  repeated google.protobuf.Struct blocks = 1;
+}
+
+message DeleteBlockRequest {
+  string id = 1;
+}
+
+message CreateBlockRequest {
+  repeated google.protobuf.Struct data = 1;
+}
+
+message CreateBlockResponse {
+  repeated google.protobuf.Struct data = 1;
+}
+
+message OpBlockRequest {
+  string id = 1;
+  repeated google.protobuf.Struct data = 2;
+}
+
+message OpBlockResponse {
+  repeated google.protobuf.Struct data = 1;
 }
