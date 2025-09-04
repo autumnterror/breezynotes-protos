@@ -321,7 +321,7 @@ func (x *GetBlocksByNoteIDRequest) GetNoteId() string {
 
 type GetBlocksResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Blocks        []*structpb.Struct     `protobuf:"bytes,1,rep,name=blocks,proto3" json:"blocks,omitempty"`
+	Blocks        *structpb.Struct       `protobuf:"bytes,1,opt,name=blocks,proto3" json:"blocks,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -356,7 +356,7 @@ func (*GetBlocksResponse) Descriptor() ([]byte, []int) {
 	return file_note_note_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *GetBlocksResponse) GetBlocks() []*structpb.Struct {
+func (x *GetBlocksResponse) GetBlocks() *structpb.Struct {
 	if x != nil {
 		return x.Blocks
 	}
@@ -639,7 +639,7 @@ const file_note_note_proto_rawDesc = "" +
 	"\x18GetBlocksByNoteIDRequest\x12\x17\n" +
 	"\anote_id\x18\x01 \x01(\tR\x06noteId\"D\n" +
 	"\x11GetBlocksResponse\x12/\n" +
-	"\x06blocks\x18\x01 \x03(\v2\x17.google.protobuf.StructR\x06blocks\"$\n" +
+	"\x06blocks\x18\x01 \x01(\v2\x17.google.protobuf.StructR\x06blocks\"$\n" +
 	"\x12DeleteBlockRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\"U\n" +
 	"\x12CreateBlockRequest\x12\x12\n" +

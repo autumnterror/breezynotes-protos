@@ -48,7 +48,7 @@ message GetBlocksByNoteIDRequest {
 }
 
 message GetBlocksResponse {
-  repeated google.protobuf.Struct blocks = 1;
+  google.protobuf.Struct blocks = 1;
 }
 
 message DeleteBlockRequest {
